@@ -1,4 +1,5 @@
-"""Simulación de 14 operaciones de Software FJ (válidas e inválidas).
+
+"""Simulación de 16 operaciones de Software FJ (válidas e inválidas).
 
 Ejecutar:  python simulacion.py   -> genera logs_software_fj.log
 """
@@ -39,9 +40,13 @@ def main():
     intentar(9, "Confirmar la reserva anterior", lambda: reservas.procesar(r1))
     intentar(10, "Reserva con duración excesiva (sala, 20 h)", lambda: reservas.crear(carlos, sala, 20))
     r2 = intentar(11, "Reserva de servicio no disponible", lambda: reservas.crear(carlos, asesoria, 2))
-    intentar(12, "Procesar reserva de servicio no disponible", lambda: reservas.procesar(r2))
+    intentar(12, "Procesar reserva de servicio no disponible",
+             lambda: reservas.procesar(r2) if r2 is not None
+             else print("[INFO] Reserva no creada; no se puede procesar"))
     r3 = intentar(13, "Reserva con descuento imposible (150%)", lambda: reservas.crear(carlos, equipo, 10, descuento=1.5))
-    intentar(14, "Procesar reserva con cálculo inconsistente", lambda: reservas.procesar(r3))
+    intentar(14, "Procesar reserva con cálculo inconsistente",
+             lambda: reservas.procesar(r3) if r3 is not None
+             else print("[INFO] Reserva no creada; no se puede procesar"))
     intentar(15, "Cancelar dos veces la misma reserva",
              lambda: (reservas.cancelar(r1), reservas.cancelar(r1)))
     intentar(16, "Reserva con cliente inexistente (None)", lambda: reservas.crear(None, sala, 2))
